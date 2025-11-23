@@ -11,7 +11,7 @@ let cart = []; // Cart items array
 // Format: "CountryCodePhoneNumber" (no + or spaces)
 const KITCHEN_WHATSAPP_NUMBERS = [
     { name: "Kitchen", number: "919741707136" },
-    // { name: "Manager", number: "919876543210" },
+    { name: "Manager", number: "919483788886" },
     // { name: "Owner", number: "919123456789" },
 ];
 
