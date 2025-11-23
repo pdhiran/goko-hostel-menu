@@ -7,7 +7,7 @@ let cart = []; // Cart items array
 // Cart item structure: { categoryKey, dishIndex, name, price, quantity, image }
 
 // Kitchen WhatsApp Configuration
-const KITCHEN_WHATSAPP = "919663257136"; // Replace with your actual WhatsApp number (with country code, no + or spaces)
+const KITCHEN_WHATSAPP = "919741707136"; // Replace with your actual WhatsApp number (with country code, no + or spaces)
 
 const menuData = {
     breakfast: {
@@ -1698,10 +1698,12 @@ function renderCart() {
         const totalPrice = priceNum * item.quantity;
         
         cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="cart-item-image" loading="lazy">
-            <div class="cart-item-info">
-                <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">${item.price}${priceNum > 0 ? ` × ${item.quantity} = ₹${totalPrice}` : ''}</div>
+            <div class="cart-item-clickable" onclick="openDishModalFromCart('${item.categoryKey}', ${item.dishIndex})" title="Click to view details">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image" loading="lazy">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name} <span class="view-details-hint">ℹ️</span></div>
+                    <div class="cart-item-price">${item.price}${priceNum > 0 ? ` × ${item.quantity} = ₹${totalPrice}` : ''}</div>
+                </div>
             </div>
             <div class="cart-item-controls">
                 <div class="quantity-controls">
@@ -1717,6 +1719,11 @@ function renderCart() {
     });
     
     updateCartSummary();
+}
+
+// Open dish modal from cart
+function openDishModalFromCart(categoryKey, dishIndex) {
+    showDishModal(categoryKey, dishIndex);
 }
 
 // Update cart summary with totals

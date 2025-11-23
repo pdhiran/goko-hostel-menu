@@ -302,6 +302,24 @@ header h1 {
     transform: translateY(-2px);
 }
 
+.cart-item-clickable {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex: 1;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.cart-item-clickable:hover {
+    opacity: 0.9;
+}
+
+.cart-item-clickable:active {
+    opacity: 0.8;
+}
+
 .cart-item-image {
     width: 80px;
     height: 80px;
@@ -320,6 +338,29 @@ header h1 {
     color: white;
     margin-bottom: 0.5rem;
     letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.view-details-hint {
+    font-size: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.cart-item-clickable:hover .view-details-hint {
+    opacity: 1;
+    animation: pulse-icon 1s ease infinite;
+}
+
+@keyframes pulse-icon {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
 }
 
 .cart-item-price {
@@ -1241,6 +1282,11 @@ footer p {
     
     .cart-item {
         flex-wrap: wrap;
+    }
+    
+    .cart-item-clickable {
+        width: 100%;
+        margin-bottom: 0.5rem;
     }
     
     .cart-item-image {
