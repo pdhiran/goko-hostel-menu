@@ -8,19 +8,45 @@ Customers can now send orders directly to your kitchen via WhatsApp! When they c
 
 ## ⚙️ Setup Instructions
 
-### Step 1: Update Kitchen WhatsApp Number
+### Step 1: Configure WhatsApp Number(s)
 
-Open `script.js` and find this line (near the top):
-
-```javascript
-const KITCHEN_WHATSAPP = "919876543210"; // Replace with your actual WhatsApp number
-```
-
-**Replace with your actual number:**
+Open `script.js` and find this configuration (near the top):
 
 ```javascript
-const KITCHEN_WHATSAPP = "919876543210"; // Example: India +91 9876543210
+// Kitchen WhatsApp Configuration - Multiple Recipients
+const KITCHEN_WHATSAPP_NUMBERS = [
+    { name: "Kitchen", number: "919741707136" },
+    // { name: "Manager", number: "919876543210" },
+    // { name: "Owner", number: "919123456789" },
+];
 ```
+
+#### Option A: Single Recipient (Default)
+
+Replace the first number with your WhatsApp number:
+
+```javascript
+const KITCHEN_WHATSAPP_NUMBERS = [
+    { name: "Kitchen", number: "919876543210" }, // Your number here
+];
+```
+
+#### Option B: Multiple Recipients (New!)
+
+Uncomment or add additional lines for multiple recipients:
+
+```javascript
+const KITCHEN_WHATSAPP_NUMBERS = [
+    { name: "Kitchen", number: "919876543210" },
+    { name: "Manager", number: "919111222333" },
+    { name: "Owner", number: "919444555666" },
+];
+```
+
+**When multiple numbers are configured:**
+- Orders are sent to ALL recipients automatically
+- Multiple WhatsApp windows will open (one for each recipient)
+- Customer confirms before sending to multiple numbers
 
 ### Important Number Format:
 - ✅ **Include country code** (no + sign)
@@ -49,7 +75,18 @@ const KITCHEN_WHATSAPP = "919876543210"; // Example: India +91 9876543210
 3. 🛒 Clicks "Place Order via WhatsApp"
 4. ✅ Form validation (name and mobile must be filled)
 5. 📱 WhatsApp opens with formatted order message
-6. ✅ Customer clicks "Send" in WhatsApp
+   - **Single recipient**: One WhatsApp window opens
+   - **Multiple recipients**: Confirmation popup → Multiple WhatsApp windows open (one per recipient)
+6. ✅ Customer clicks "Send" in each WhatsApp window
+
+### Multiple Recipients Flow:
+When you have multiple WhatsApp numbers configured:
+1. Customer clicks "Place Order via WhatsApp"
+2. Popup shows: "Your order will be sent to 3 recipients: Kitchen, Manager, Owner"
+3. Customer clicks OK to confirm
+4. WhatsApp windows open sequentially (500ms delay between each)
+5. Customer sends the message in each window
+6. All recipients receive the order simultaneously
 
 ### Kitchen Receives:
 ```

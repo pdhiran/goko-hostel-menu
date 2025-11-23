@@ -6,8 +6,17 @@ let cart = []; // Cart items array
 
 // Cart item structure: { categoryKey, dishIndex, name, price, quantity, image }
 
-// Kitchen WhatsApp Configuration
-const KITCHEN_WHATSAPP = "919741707136"; // Replace with your actual WhatsApp number (with country code, no + or spaces)
+// Kitchen WhatsApp Configuration - Multiple Recipients
+// Add multiple numbers in the array below. Orders will be sent to all numbers.
+// Format: "CountryCodePhoneNumber" (no + or spaces)
+const KITCHEN_WHATSAPP_NUMBERS = [
+    { name: "Kitchen", number: "919741707136" },
+    // { name: "Manager", number: "919876543210" },
+    // { name: "Owner", number: "919123456789" },
+];
+
+// Legacy single number support (deprecated - use array above)
+const KITCHEN_WHATSAPP = KITCHEN_WHATSAPP_NUMBERS[0]?.number || "919741707136";
 
 const menuData = {
     breakfast: {
@@ -1898,19 +1907,53 @@ function formatOrderForWhatsApp(customerName, customerMobile, roomNumber, instru
     return message;
 }
 
-// Send order to kitchen via WhatsApp
+// Send order to kitchen via WhatsApp (supports multiple recipients)
 function sendOrderViaWhatsApp(message) {
     // Encode message for URL
     const encodedMessage = encodeURIComponent(message);
     
-    // Create WhatsApp URL
-    const whatsappURL = `https://wa.me/${KITCHEN_WHATSAPP}?text=${encodedMessage}`;
-    
-    // Open WhatsApp in new tab/window
-    window.open(whatsappURL, '_blank');
-    
-    // Show confirmation
-    alert('Opening WhatsApp to send your order to the kitchen!\n\nYour order will be sent when you click Send in WhatsApp.');
+    // Check if we have multiple recipients
+    if (KITCHEN_WHATSAPP_NUMBERS.length > 1) {
+        // Build recipient list for confirmation
+        const recipientsList = KITCHEN_WHATSAPP_NUMBERS
+            .map(recipient => recipient.name)
+            .join(', ');
+        
+        // Confirm sending to multiple numbers
+        const confirmSend = confirm(
+            `Your order will be sent to ${KITCHEN_WHATSAPP_NUMBERS.length} recipients:\n\n${recipientsList}\n\n` +
+            `${KITCHEN_WHATSAPP_NUMBERS.length} WhatsApp windows will open. Click OK to continue.`
+        );
+        
+        if (!confirmSend) {
+            return; // User cancelled
+        }
+        
+        // Open WhatsApp for each recipient with a small delay
+        KITCHEN_WHATSAPP_NUMBERS.forEach((recipient, index) => {
+            setTimeout(() => {
+                const whatsappURL = `https://wa.me/${recipient.number}?text=${encodedMessage}`;
+                window.open(whatsappURL, '_blank');
+            }, index * 500); // 500ms delay between each window to avoid popup blocking
+        });
+        
+        // Show confirmation
+        alert(
+            `Opening ${KITCHEN_WHATSAPP_NUMBERS.length} WhatsApp windows!\n\n` +
+            `Your order will be sent to: ${recipientsList}\n\n` +
+            `Click Send in each WhatsApp window to complete your order.`
+        );
+    } else {
+        // Single recipient - original behavior
+        const recipient = KITCHEN_WHATSAPP_NUMBERS[0];
+        const whatsappURL = `https://wa.me/${recipient.number}?text=${encodedMessage}`;
+        window.open(whatsappURL, '_blank');
+        
+        alert(
+            `Opening WhatsApp to send your order to ${recipient.name}!\n\n` +
+            `Your order will be sent when you click Send in WhatsApp.`
+        );
+    }
     
     // Clear cart and form after successful order
     setTimeout(() => {
