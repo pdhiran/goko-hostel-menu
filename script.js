@@ -8,7 +8,7 @@ let cart = []; // Cart items array
 
 // Kitchen WhatsApp Configuration
 // Replace with your actual WhatsApp number (with country code, no + or spaces)
-const KITCHEN_WHATSAPP = "919741707136";
+const KITCHEN_WHATSAPP = "919483788886";
 
 const menuData = {
     breakfast: {
