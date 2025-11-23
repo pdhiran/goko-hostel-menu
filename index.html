@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Goko Hostel Gokarna - Beach-side dining with ocean views and delicious coastal cuisine">
+    <meta name="theme-color" content="#00B4D8">
+    <title>Goko Hostel Gokarna - Beach Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>🌊 Goko Hostel Gokarna</h1>
+                    <p class="tagline">Beach-side dining with ocean views & coastal flavors</p>
+                </div>
+                <button class="cart-btn" onclick="showCart()" aria-label="Shopping Cart">
+                    🛒
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="categories" class="categories-grid">
+            <!-- Categories will be rendered here by JavaScript -->
+        </section>
+
+        <section id="dishes" class="dishes-section hidden">
+            <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+            <h2 id="category-title"></h2>
+            <div class="dishes-grid">
+                <!-- Dishes will be rendered here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="cart" class="cart-section hidden">
+            <button class="back-btn" onclick="closeCart()">← Back</button>
+            <h2 class="cart-title">🛒 Your Cart</h2>
+            <div id="cart-items" class="cart-items">
+                <!-- Cart items will be rendered here -->
+            </div>
+            <div class="cart-empty hidden" id="cart-empty">
+                <p>Your cart is empty</p>
+                <p class="empty-subtitle">Add some delicious items to get started!</p>
+            </div>
+            <div class="cart-summary" id="cart-summary">
+                <h3 class="customer-details-title">Customer Details</h3>
+                <div class="customer-form">
+                    <div class="form-group">
+                        <label for="customer-name">Name <span class="required">*</span></label>
+                        <input type="text" id="customer-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-mobile">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="customer-mobile" placeholder="Enter mobile number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-room">Room Number <span class="optional">(Optional)</span></label>
+                        <input type="text" id="customer-room" placeholder="Room number if staying at hostel">
+                    </div>
+                    <div class="form-group">
+                        <label for="special-instructions">Special Instructions <span class="optional">(Optional)</span></label>
+                        <textarea id="special-instructions" placeholder="Any special requests? (e.g., extra spicy, no onions)" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <div class="bill-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">₹0</span>
+                    </div>
+                    <div class="summary-row taxes">
+                        <span>Taxes & Fees:</span>
+                        <span id="cart-taxes">₹0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="cart-total">₹0</span>
+                    </div>
+                </div>
+                
+                <button class="checkout-btn" onclick="checkout()">Place Order via WhatsApp</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for dish details -->
+    <div id="dishModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body">
+                <!-- Dish details will be rendered here -->
+            </div>
+            <div id="modal-cart-controls">
+                <!-- Cart controls will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>🏖️ Goko Hostel Gokarna - Where the beach meets flavor</p>
+            <p>&copy; 2025 Goko Hostel Gokarna. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
